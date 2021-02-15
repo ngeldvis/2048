@@ -1,0 +1,5 @@
+WIDTH, HEIGHT = 500, 500
+ROWS, COLS = 4, 4
+
+WHITE = (255, 255, 255)
+BLACK = (0, 0, 0)

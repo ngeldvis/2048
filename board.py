@@ -16,32 +16,28 @@ class Board:
     def no_moves() -> bool:
         for i in range(ROWS):
             for j in range(COLS):
-                if(i > 0) {
+                if i > 0:
                     if self.board[i-1][j] == self.board[i][j]:
                         return False
-                }
-                if(i < COLS-1) {
+                if i < COLS-1:
                     if self.board[i+1][j] == self.board[i][j]:
                         return False
-                }
-                if(j > 0) {
-                    if self.board[j-1][j] == self.board[i][j]:
+                if j > 0:
+                    if self.board[i][j-1] == self.board[i][j]:
                         return False
-                }
-                if(j < ROWS-1) {
-                    if self.board[j+1][j] == self.board[i][j]:
+                if j < ROWS-1:
+                    if self.board[i][j+1] == self.board[i][j]:
                         return False
-                }
         return True
 
-    def shift_left() -> None:
+    def shift_left(self) -> None:
         pass
 
-    def shift_right() -> None:
+    def shift_right(self) -> None:
         pass
     
-    def shift_up() -> None:
+    def shift_up(self) -> None:
         pass
     
-    def shift_down() -> None:
+    def shift_down(self) -> None:
         pass

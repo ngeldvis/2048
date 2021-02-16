@@ -1,8 +1,8 @@
 import pygame
 import random
-from constants import ROWS, COLS
+from constants import ROWS, COLS, MULTIPLIER
 
-START_VALS = [2, 4]
+START_VALS = [MULTIPLIER, MULTIPLIER * MULTIPLIER]
 
 class Board:
 
@@ -58,7 +58,7 @@ class Board:
                 else:
                     x, y = point[0], point[1]
                     if self.board[x][y] == self.board[i][j]:
-                        self.board[x][y] *= 2
+                        self.board[x][y] *= MULTIPLIER
                         self.board[i][j] = 0
                     elif y+1 != j:
                         self.board[x][y+1] = self.board[i][j]
@@ -81,7 +81,7 @@ class Board:
                 else:
                     x, y = point[0], point[1]
                     if self.board[x][y] == self.board[i][j]:
-                        self.board[x][y] *= 2
+                        self.board[x][y] *= MULTIPLIER
                         self.board[i][j] = 0
                     elif y-1 != j:
                         self.board[x][y-1] = self.board[i][j]
@@ -104,7 +104,7 @@ class Board:
                 else:
                     x, y, = point[0], point[1]
                     if self.board[x][y] == self.board[i][j]:
-                        self.board[x][y] *= 2
+                        self.board[x][y] *= MULTIPLIER
                         self.board[i][j] = 0
                     elif x+1 != i:
                         self.board[x+1][y] = self.board[i][j]
@@ -128,7 +128,7 @@ class Board:
                 else:
                     x, y = point[0], point[1]
                     if self.board[x][y] == self.board[i][j]:
-                        self.board[x][y] *= 2
+                        self.board[x][y] *= MULTIPLIER
                         self.board[i][j] = 0
                     elif x-1 != i:
                         self.board[x-1][y] = self.board[i][j]

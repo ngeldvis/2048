@@ -1,21 +1,36 @@
 import pygame
 import random
-from constants import ROWS, COLS, MULTIPLIER
+from constants import *
+# Contains the Board class which consists of the
+# framework used to keep track of the current state 
+# of the board along with all the calculations used
+# when playing the game
 
 START_VALS = [MULTIPLIER, MULTIPLIER * MULTIPLIER]
 
 class Board:
 
-    def __init__(self) -> None:
+    def __init__(self, num_blocks=STARTING_BLOCKS) -> None:
         self.board = [[0 for j in range(COLS)] for i in range(ROWS)]
+        for i in range(num_blocks):
+            self.add_block()
 
-    def draw(self, window: pygame.Surface) -> None:
-        window.fill((255, 255, 255))
-        for i in range(ROWS):
-            for j in range(COLS):
-                if self.board[i][j] != 0:
-                    pass
+    def draw(self, window) -> None:
+        block_width = (WIDTH - (W_BORDER_WEIGHT * (COLS+1))) / COLS
+        block_height = (HEIGHT - (H_BORDER_WEIGHT * (ROWS+1))) / ROWS
+        window.fill(COLORS['border'])
+
+        for i in range(COLS):
+            for j in range(ROWS):
+                pygame.draw.rect(window, COLORS['bg'],
+                    (i * block_width + i * W_BORDER_WEIGHT + W_BORDER_WEIGHT, j * block_height + j * H_BORDER_WEIGHT + H_BORDER_WEIGHT, block_width, block_height), border_radius=BLOCK_RADIUS)
+
+        for i in range(COLS):
+            for j in range(ROWS):
+                if self.board[j][i] != 0:
+                    pygame.draw.rect(window, BLOCK_COLORS[self.board[j][i]], (i * block_width + i * W_BORDER_WEIGHT + W_BORDER_WEIGHT, j * block_height + j * H_BORDER_WEIGHT + H_BORDER_WEIGHT, block_width, block_height), border_radius=BLOCK_RADIUS)
     
+    # returns true if there are no possible moves to make
     def no_moves(self) -> bool:
         for i in range(ROWS):
             for j in range(COLS):
@@ -24,16 +39,18 @@ class Board:
                 if i > 0:
                     if self.board[i-1][j] == self.board[i][j]:
                         return False
-                if i < COLS-1:
+                if i < ROWS-1:
                     if self.board[i+1][j] == self.board[i][j]:
                         return False
                 if j > 0:
                     if self.board[i][j-1] == self.board[i][j]:
                         return False
-                if j < ROWS-1:
+                if j < COLS-1:
                     if self.board[i][j+1] == self.board[i][j]:
                         return False
+        return True
 
+    # returns true if all the spaces on the board are occupied
     def is_full(self) -> bool:
         for i in range(ROWS):
             for j in range(COLS):
@@ -121,7 +138,7 @@ class Board:
         # print('shift down')
         for j in range(COLS):
             for i in reversed(range(ROWS-1)):
-                point = get_closest_down(i, j)
+                point = self.get_closest_down(i, j)
                 if point == [i, j]:
                     self.board[ROWS-1][j] = self.board[i][j]
                     self.board[i][j] = 0

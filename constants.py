@@ -1,6 +1,6 @@
 # Contains all the constants used in and by the game
 
-WIDTH, HEIGHT = 700, 700
+WIDTH, HEIGHT = 400, 400
 ROWS, COLS = 4, 4
 MULTIPLIER = 2
 WIDTH_PERCENT = 1.5

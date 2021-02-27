@@ -15,6 +15,16 @@ class Board:
         for i in range(num_blocks):
             self.add_block()
 
+    def get_font_size(self, num) -> int:
+        if num < 1000:
+            return 70
+        elif num < 10000:
+            return 50
+        elif num < 100000:
+            return 25
+        else:
+            return 10
+
     def draw(self, window) -> None:
         block_width = (WIDTH - (W_BORDER_WEIGHT * (COLS+1))) / COLS
         block_height = (HEIGHT - (H_BORDER_WEIGHT * (ROWS+1))) / ROWS
@@ -27,8 +37,28 @@ class Board:
 
         for i in range(COLS):
             for j in range(ROWS):
-                if self.board[j][i] != 0:
-                    pygame.draw.rect(window, BLOCK_COLORS[self.board[j][i]], (i * block_width + i * W_BORDER_WEIGHT + W_BORDER_WEIGHT, j * block_height + j * H_BORDER_WEIGHT + H_BORDER_WEIGHT, block_width, block_height), border_radius=BLOCK_RADIUS)
+                val = self.board[j][i]
+                if val != 0:
+
+
+                    font_size = self.get_font_size(val)
+
+                    font = pygame.font.SysFont('Rubik', font_size)
+                    text = font.render(str(val), True, WHITE)
+
+                    x_offset = i * block_width + i * W_BORDER_WEIGHT + W_BORDER_WEIGHT
+                    y_offset = j * block_height + j * H_BORDER_WEIGHT + H_BORDER_WEIGHT
+
+                    rect = pygame.Rect(x_offset, y_offset, block_width, block_height)
+
+                    pygame.draw.rect(window, BLOCK_COLORS[val], rect, border_radius=BLOCK_RADIUS)
+
+                    text_placement = (
+                        rect.width // 2 - text.get_rect().width // 2 + x_offset, 
+                        rect.height // 2 - text.get_rect().height // 2 + y_offset
+                    )
+
+                    window.blit(text, text_placement)
     
     # returns true if there are no possible moves to make
     def no_moves(self) -> bool:

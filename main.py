@@ -35,6 +35,7 @@ def make_move(board: Board, key: int, window: pygame.Surface) -> None:
 # main function with event loop
 def main() -> None:
     pygame.init()
+    pygame.font.init()
     clock = pygame.time.Clock()
 
     window = set_window()

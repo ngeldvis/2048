@@ -1,7 +1,7 @@
 import pygame
 
 from board import Board
-from constants import WIDTH, HEIGHT, WHITE
+from constants import *
 
 # Author: Nigel Davis
 # Title: 2048 Game
@@ -44,6 +44,8 @@ def main() -> None:
     board.draw(window)
     pygame.display.update()
 
+    game_over = False
+
     running = True
     while running:
         clock.tick(FPS)
@@ -53,13 +55,11 @@ def main() -> None:
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                if event.key in ARROW_KEYS:
-                    make_move(board, event.key, window)
-                    print(board)
-                    print('\n')
+                if not game_over:
+                    if event.key in ARROW_KEYS:
+                        make_move(board, event.key, window)
 
         if board.no_moves():
-            running = False
-            print('No more moves\n')
+            game_over = True
 
 main()

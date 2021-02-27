@@ -43,7 +43,7 @@ class Board:
 
                     font_size = self.get_font_size(val)
 
-                    font = pygame.font.SysFont('Rubik', font_size)
+                    font = pygame.font.SysFont(FONT, font_size)
                     text = font.render(str(val), True, WHITE)
 
                     x_offset = i * block_width + i * W_BORDER_WEIGHT + W_BORDER_WEIGHT

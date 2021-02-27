@@ -1,16 +1,34 @@
 # Contains all the constants used in and by the game
 
-WIDTH, HEIGHT = 400, 400
+WIDTH, HEIGHT = 500, 500
 ROWS, COLS = 4, 4
 MULTIPLIER = 2
-WIDTH_PERCENT = 1.5
-BLOCK_RADIUS = 15
-H_BORDER_WEIGHT = HEIGHT * WIDTH_PERCENT / 100
-W_BORDER_WEIGHT = WIDTH * WIDTH_PERCENT / 100
 STARTING_BLOCKS = 2
 
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0)
+# GUI
+
+BLOCK_RADIUS = 5
+BORDER_PERCENT = 3
+H_BORDER_WEIGHT = HEIGHT * BORDER_PERCENT / 100
+W_BORDER_WEIGHT = WIDTH * BORDER_PERCENT / 100
+FONT = 'JetBrains Mono'
+
+#COLORS
+
+WHITE   = (255, 255, 255)
+BLACK   = (  0,   0,   0)
+RED     = (255, 255, 255)
+ORANGE  = (255, 128,   0)
+YELLOW  = (255, 255,   0)
+LIME    = (128, 255,   0)
+GREEN   = (  0, 255,   0)
+TEAL    = (  0, 255, 128)
+CYAN    = (  0, 255, 255)
+L_BLUE  = (  0, 128, 255)
+BLUE    = (  0,   0, 255)
+PURPLE  = (128,   0, 255)
+MAGENTA = (255,   0, 255)
+P_RED   = (255,   0, 128)
 
 COLORS = {
     'bg' : (204, 192, 179),

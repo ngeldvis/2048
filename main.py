@@ -58,6 +58,11 @@ def main() -> None:
                 if not game_over:
                     if event.key in ARROW_KEYS:
                         make_move(board, event.key, window)
+                if event.key == pygame.K_c:
+                        board.clear()
+                        game_over = False
+                        board.draw(window)
+                        pygame.display.update()
 
         if board.no_moves():
             game_over = True

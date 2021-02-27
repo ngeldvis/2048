@@ -16,14 +16,15 @@ class Board:
             self.add_block()
 
     def get_font_size(self, num) -> int:
+        if num < 100:
+            return 60
         if num < 1000:
-            return 70
+            return 55
         elif num < 10000:
             return 50
         elif num < 100000:
             return 25
-        else:
-            return 10
+        return 10
 
     def draw(self, window) -> None:
         block_width = (WIDTH - (W_BORDER_WEIGHT * (COLS+1))) / COLS
@@ -43,7 +44,7 @@ class Board:
 
                     font_size = self.get_font_size(val)
 
-                    font = pygame.font.SysFont(FONT, font_size)
+                    font = pygame.font.Font(FONT, font_size)
                     text = font.render(str(val), True, WHITE)
 
                     x_offset = i * block_width + i * W_BORDER_WEIGHT + W_BORDER_WEIGHT
@@ -54,8 +55,8 @@ class Board:
                     pygame.draw.rect(window, BLOCK_COLORS[val], rect, border_radius=BLOCK_RADIUS)
 
                     text_placement = (
-                        rect.width // 2 - text.get_rect().width // 2 + x_offset, 
-                        rect.height // 2 - text.get_rect().height // 2 + y_offset
+                        rect.center[0] - text.get_rect().width // 2, 
+                        rect.center[1] - text.get_rect().height // 2 - 5
                     )
 
                     window.blit(text, text_placement)
@@ -188,6 +189,11 @@ class Board:
             if self.board[i][j] == 0:
                 break
         self.board[i][j] = random.choice(START_VALS)
+
+    def clear(self) -> None:
+        self.board = [[0 for j in range(COLS)] for i in range(ROWS)]
+        for i in range(STARTING_BLOCKS):
+            self.add_block()
     
     def __repr__(self) -> str:
         return '\n'.join([''.join(['{:5}'.format(item) for item in row]) 

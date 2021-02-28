@@ -1,7 +1,7 @@
 # Contains all the constants used in and by the game
 
 WIDTH, HEIGHT = 500, 500 # default 500, 500
-ROWS, COLS = 3, 3 # default 4, 4
+ROWS, COLS = 4, 4 # default 4, 4
 MULTIPLIER = 2 # default 2
 STARTING_BLOCKS = 2 # default 2
 NEW_BLOCKS_PER_MOVE = 1 # default 1
@@ -18,6 +18,8 @@ FONT = 'rsc/ClearSans-Bold.ttf'
 
 GAME_OVER_POS_W = WIDTH // 2
 GAME_OVER_POS_H = HEIGHT // 3
+FADE_TIME = 2 # seconds
+FADE_ALPHA = 180
 
 RESTART_BUTTON_POS_W = WIDTH // 2
 RESTART_BUTTON_POS_H = HEIGHT * 2 // 3
@@ -46,7 +48,7 @@ COLORS = {
     'bg' : (205, 193, 180),
     'border' : (187, 173, 160),
     'dark_text' : (119, 110, 101),
-    'start_screen' : (250, 248, 239, 128)
+    'start_screen' : (250, 248, 239, 180)
 }
 
 BLOCK_COLORS = {

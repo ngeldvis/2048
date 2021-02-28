@@ -50,10 +50,12 @@ def reset_board(board: list, window: pygame.Surface) -> None:
 
 def draw_finish_screen(window: pygame.Surface) -> None:
     # faded background
-    bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
-    s = pygame.Surface(pygame.Rect(bg).size, pygame.SRCALPHA)
-    pygame.draw.rect(s, COLORS['start_screen'], s.get_rect())
-    window.blit(s, (0, 0))
+    for i in range(FADE_ALPHA):
+        bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
+        s = pygame.Surface(pygame.Rect(bg).size, pygame.SRCALPHA)
+        pygame.draw.rect(s, (250, 248, 239, i), s.get_rect())
+        window.blit(s, (0, 0))
+        sleep(FADE_TIME / FADE_ALPHA)
     # 'game over' text
     font = pygame.font.Font(FONT, 70)
     text = font.render("GAME OVER!", True, COLORS['dark_text'])

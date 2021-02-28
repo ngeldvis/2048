@@ -48,13 +48,15 @@ def reset_board(board: list, window: pygame.Surface) -> None:
     board.clear()
     board.draw(window)
 
-def draw_finish_screen(window: pygame.Surface) -> None:
+def draw_finish_screen(window: pygame.Surface, board: list) -> None:
     # faded background
     for i in range(FADE_ALPHA):
         bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
         s = pygame.Surface(pygame.Rect(bg).size, pygame.SRCALPHA)
         pygame.draw.rect(s, (250, 248, 239, i), s.get_rect())
+        board.draw(window)
         window.blit(s, (0, 0))
+        pygame.display.update()
         sleep(FADE_TIME / FADE_ALPHA)
     # 'game over' text
     font = pygame.font.Font(FONT, 70)
@@ -64,8 +66,8 @@ def draw_finish_screen(window: pygame.Surface) -> None:
     text_placement = (text_x, text_y)
     window.blit(text, text_placement)
 
-def over(window: pygame.Surface) -> None:
-    draw_finish_screen(window)
+def over(window: pygame.Surface, board: list) -> None:
+    draw_finish_screen(window, board)
 
 def draw_button(window: pygame.Surface, mouse) -> None:
     # button box
@@ -115,7 +117,7 @@ def main() -> None:
                     make_move(board, event.key, window)
                     if board.no_moves() and game_over == False:
                         game_over = True
-                        over(window)
+                        over(window, board)
                 # C is pressed
                 if event.key == pygame.K_c:
                     reset_board(board, window)

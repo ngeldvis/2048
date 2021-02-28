@@ -14,6 +14,8 @@ FPS = 60
 # set the initial conditions of the game window
 def set_window() -> pygame.Surface:
     window = pygame.display.set_mode((WIDTH, HEIGHT))
+    icon = pygame.image.load('rsc/icon.png')
+    pygame.display.set_icon(icon)
     pygame.display.set_caption('2048')
     window.fill(WHITE)
     return window
@@ -40,22 +42,43 @@ def make_move(board: Board, key: int, window: pygame.Surface) -> None:
         for i in range(NEW_BLOCKS_PER_MOVE):
             board.add_block()
         board.draw(window)
-        pygame.display.update()
 
 # clears and resets the board
 def reset_board(board: list, window: pygame.Surface) -> None:
     board.clear()
     board.draw(window)
-    pygame.display.update()
 
-# def draw_finish_screen(window: pygame.Surface) -> None:
-#     bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
-#     s = pygame.Surface(pygame.Rect(bg).size, pygame.SRCALPHA)
-#     pygame.draw.rect(s, (255, 255, 255, 128), s.get_rect())
-#     window.blit(s, (0, 0))
+def draw_finish_screen(window: pygame.Surface) -> None:
+    # faded background
+    bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
+    s = pygame.Surface(pygame.Rect(bg).size, pygame.SRCALPHA)
+    pygame.draw.rect(s, COLORS['start_screen'], s.get_rect())
+    window.blit(s, (0, 0))
+    # 'game over' text
+    font = pygame.font.Font(FONT, 70)
+    text = font.render("GAME OVER!", True, COLORS['dark_text'])
+    text_x = GAME_OVER_POS_W - text.get_rect().width // 2
+    text_y = GAME_OVER_POS_H - text.get_rect().height // 2
+    text_placement = (text_x, text_y)
+    window.blit(text, text_placement)
 
-# def over(window: pygame.Surface) -> None:
-#     draw_finish_screen(window)
+def over(window: pygame.Surface) -> None:
+    draw_finish_screen(window)
+
+def draw_button(window: pygame.Surface, mouse) -> None:
+    if mouse_on_button(mouse):
+        x_offset = RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2
+        y_offset = RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2
+        button = pygame.Rect(x_offset, y_offset, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
+        pygame.draw.rect(window, COLORS['dark_text'], button, border_radius=BLOCK_RADIUS)
+    else:
+        x_offset = RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2
+        y_offset = RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2
+        button = pygame.Rect(x_offset, y_offset, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
+        pygame.draw.rect(window, COLORS['dark_text'], button, border_radius=BLOCK_RADIUS)
+
+def mouse_on_button(mouse):
+    return RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2 <= mouse[0] <= RESTART_BUTTON_POS_W + RESTART_BUTTON_WIDTH // 2 and RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2 <= mouse[1] <= RESTART_BUTTON_POS_H + RESTART_BUTTON_HEIGHT // 2
 
 # main function with event loop
 def main() -> None:
@@ -85,7 +108,7 @@ def main() -> None:
                     make_move(board, event.key, window)
                     if board.no_moves() and game_over == False:
                         game_over = True
-                        # over(window)
+                        over(window)
                 # C is pressed
                 if event.key == pygame.K_c:
                     reset_board(board, window)
@@ -93,5 +116,19 @@ def main() -> None:
                 # X is pressed
                 if event.key == pygame.K_x:
                     running = False
+
+            if game_over == True:
+                if event.type == pygame.MOUSEBUTTONDOWN: 
+                    # 'new game' button pressed
+                    if mouse_on_button(mouse)
+                        reset_board(board, window)
+                        game_over = False
+        
+        mouse = pygame.mouse.get_pos()
+
+        if game_over == True:
+            draw_button(window, mouse)
+
+        pygame.display.update()
 
 main()

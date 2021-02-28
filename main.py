@@ -66,16 +66,21 @@ def over(window: pygame.Surface) -> None:
     draw_finish_screen(window)
 
 def draw_button(window: pygame.Surface, mouse) -> None:
+    # button box
+    x_offset = RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2
+    y_offset = RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2
+    button = pygame.Rect(x_offset, y_offset, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
     if mouse_on_button(mouse):
-        x_offset = RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2
-        y_offset = RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2
-        button = pygame.Rect(x_offset, y_offset, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
-        pygame.draw.rect(window, COLORS['dark_text'], button, border_radius=BLOCK_RADIUS)
+        pygame.draw.rect(window, COLORS['border'], button, border_radius=BLOCK_RADIUS)
     else:
-        x_offset = RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2
-        y_offset = RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2
-        button = pygame.Rect(x_offset, y_offset, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
         pygame.draw.rect(window, COLORS['dark_text'], button, border_radius=BLOCK_RADIUS)
+    # 'try again' text
+    font = pygame.font.Font(FONT, 30)
+    text = font.render("Try again", True, WHITE)
+    text_x = RESTART_BUTTON_POS_W - text.get_rect().width // 2
+    text_y = RESTART_BUTTON_POS_H - text.get_rect().height // 2 - 5
+    text_placement = (text_x, text_y)
+    window.blit(text, text_placement)
 
 def mouse_on_button(mouse):
     return RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2 <= mouse[0] <= RESTART_BUTTON_POS_W + RESTART_BUTTON_WIDTH // 2 and RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2 <= mouse[1] <= RESTART_BUTTON_POS_H + RESTART_BUTTON_HEIGHT // 2
@@ -120,7 +125,7 @@ def main() -> None:
             if game_over == True:
                 if event.type == pygame.MOUSEBUTTONDOWN: 
                     # 'new game' button pressed
-                    if mouse_on_button(mouse)
+                    if mouse_on_button(mouse):
                         reset_board(board, window)
                         game_over = False
         

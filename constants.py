@@ -1,16 +1,19 @@
 # Contains all the constants used in and by the game
 
-WIDTH, HEIGHT = 500, 500
-ROWS, COLS = 4, 4
-MULTIPLIER = 2
-STARTING_BLOCKS = 2
+WIDTH, HEIGHT = 500, 500 # default 500, 500
+ROWS, COLS = 4, 4 # default 4, 4
+MULTIPLIER = 2 # default 2
+STARTING_BLOCKS = 2 # default 2
+NEW_BLOCKS_PER_MOVE = 1 # default 1
+NEW_BLOCK_DELAY = 0 # 0.15 seconds
 
 # GUI
 
-BLOCK_RADIUS = 5
-BORDER_PERCENT = 3
+BLOCK_RADIUS = 5 # default 5
+BORDER_PERCENT = 3 # default 3
 H_BORDER_WEIGHT = HEIGHT * BORDER_PERCENT / 100
 W_BORDER_WEIGHT = WIDTH * BORDER_PERCENT / 100
+B_TEXT = True # default True
 FONT = 'rsc/ClearSans-Bold.ttf'
 
 #COLORS
@@ -31,18 +34,19 @@ MAGENTA = (255,   0, 255)
 P_RED   = (255,   0, 128)
 
 COLORS = {
-    'bg' : (204, 192, 179),
-    'border' : (187, 173, 160)
+    'bg' : (205, 193, 180),
+    'border' : (187, 173, 160),
+    'dark_text' : (119, 110, 101)
 }
 
 BLOCK_COLORS = {
     MULTIPLIER ** 1  : (238, 228, 218),
-    MULTIPLIER ** 2  : (237, 224, 200),
-    MULTIPLIER ** 3  : (242, 177, 121),
-    MULTIPLIER ** 4  : (245, 149,  99),
-    MULTIPLIER ** 5  : (246, 124,  95),
-    MULTIPLIER ** 6  : (246,  94,  59),
-    MULTIPLIER ** 7  : (237, 207, 114),
+    MULTIPLIER ** 2  : (238, 225, 200),
+    MULTIPLIER ** 3  : (243, 178, 122),
+    MULTIPLIER ** 4  : (246, 150, 100),
+    MULTIPLIER ** 5  : (247, 125,  97),
+    MULTIPLIER ** 6  : (247,  98,  61),
+    MULTIPLIER ** 7  : (237, 208, 115),
     MULTIPLIER ** 8  : (237, 204,  97),
     MULTIPLIER ** 9  : (237, 200,  80),
     MULTIPLIER ** 10 : (237, 197,  63),

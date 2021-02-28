@@ -1,5 +1,6 @@
 import pygame
 
+from time import sleep
 from board import Board
 from constants import *
 
@@ -19,18 +20,42 @@ def set_window() -> pygame.Surface:
 
 # execute move required based on user input
 def make_move(board: Board, key: int, window: pygame.Surface) -> None:
+    valid_move = False
     if key == pygame.K_LEFT:
-        board.shift_left()
+        if board.shift_left() == 1:
+            valid_move = True
     elif key == pygame.K_RIGHT:
-        board.shift_right()
+        if board.shift_right() == 1:
+            valid_move = True
     elif key == pygame.K_UP:
-        board.shift_up()
+        if board.shift_up() == 1:
+            valid_move = True
     elif key == pygame.K_DOWN:
-        board.shift_down()
-    if not board.is_full():
-        board.add_block()
+        if board.shift_down() == 1:
+            valid_move = True
     board.draw(window)
     pygame.display.update()
+    if not board.is_full() and valid_move == True:
+        sleep(NEW_BLOCK_DELAY)
+        for i in range(NEW_BLOCKS_PER_MOVE):
+            board.add_block()
+        board.draw(window)
+        pygame.display.update()
+
+# clears and resets the board
+def reset_board(board: list, window: pygame.Surface) -> None:
+    board.clear()
+    board.draw(window)
+    pygame.display.update()
+
+# def draw_finish_screen(window: pygame.Surface) -> None:
+#     bg = pygame.Rect(0, 0, WIDTH, HEIGHT)
+#     s = pygame.Surface(pygame.Rect(bg).size, pygame.SRCALPHA)
+#     pygame.draw.rect(s, (255, 255, 255, 128), s.get_rect())
+#     window.blit(s, (0, 0))
+
+# def over(window: pygame.Surface) -> None:
+#     draw_finish_screen(window)
 
 # main function with event loop
 def main() -> None:
@@ -55,16 +80,18 @@ def main() -> None:
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                if not game_over:
-                    if event.key in ARROW_KEYS:
-                        make_move(board, event.key, window)
+                # Arrow keys are pressed
+                if not game_over and event.key in ARROW_KEYS:
+                    make_move(board, event.key, window)
+                    if board.no_moves() and game_over == False:
+                        game_over = True
+                        # over(window)
+                # C is pressed
                 if event.key == pygame.K_c:
-                        board.clear()
-                        game_over = False
-                        board.draw(window)
-                        pygame.display.update()
-
-        if board.no_moves():
-            game_over = True
+                    reset_board(board, window)
+                    game_over = False
+                # X is pressed
+                if event.key == pygame.K_x:
+                    running = False
 
 main()

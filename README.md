@@ -1,6 +1,6 @@
 # 2048
 
-Recreation of the popular 2048 game created by Gabriele Cirulli ([found here](https://play2048.co/ "Original 2048 Game")) made in python using pygame
+Recreation of the popular 2048 game created by Gabriele Cirulli (found [here](https://play2048.co/ "Original 2048 Game")) made in python using pygame
 
 # Requirements
 

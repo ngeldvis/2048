@@ -6,7 +6,7 @@ from constants import *
 
 # Author: Nigel Davis
 # Title: 2048 Game
-# Version: v0.7a
+# Version: v0.16
 
 ARROW_KEYS = [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]
 FPS = 60

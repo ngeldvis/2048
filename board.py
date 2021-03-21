@@ -116,6 +116,7 @@ class Board:
     def shift_left(self) -> None:
         # print('shift left')
         new_board = copy.deepcopy(self.board)
+        merged_points = []
         for i in range(ROWS):
             for j in range(1, COLS):
                 point = self.get_closest_left(i, j, new_board)
@@ -124,8 +125,9 @@ class Board:
                     new_board[i][j] = 0
                 else:
                     x, y = point[0], point[1]
-                    if new_board[x][y] == new_board[i][j]:
+                    if new_board[x][y] == new_board[i][j] and (x, y) not in merged_points:
                         new_board[x][y] *= MULTIPLIER
+                        merged_points.append((x, y))
                         new_board[i][j] = 0
                     elif y+1 != j:
                         new_board[x][y+1] = new_board[i][j]
@@ -147,6 +149,7 @@ class Board:
     def shift_right(self) -> None:
         # print('shift right')
         new_board = copy.deepcopy(self.board)
+        merged_points = []
         for i in range(ROWS):
             for j in reversed(range(COLS-1)):
                 point = self.get_closest_right(i, j, new_board)
@@ -155,8 +158,9 @@ class Board:
                     new_board[i][j] = 0
                 else:
                     x, y = point[0], point[1]
-                    if new_board[x][y] == new_board[i][j]:
+                    if new_board[x][y] == new_board[i][j] and (x, y) not in merged_points:
                         new_board[x][y] *= MULTIPLIER
+                        merged_points.append((x, y))
                         new_board[i][j] = 0
                     elif y-1 != j:
                         new_board[x][y-1] = new_board[i][j]
@@ -179,6 +183,7 @@ class Board:
     def shift_up(self) -> int:
         # print('shift up')
         new_board = copy.deepcopy(self.board)
+        merged_points = []
         for j in range(COLS):
             for i in range(1, ROWS):
                 point = self.get_closest_up(i, j, new_board)
@@ -187,8 +192,9 @@ class Board:
                     new_board[i][j] = 0
                 else:
                     x, y, = point[0], point[1]
-                    if new_board[x][y] == new_board[i][j]:
+                    if new_board[x][y] == new_board[i][j] and (x, y) not in merged_points:
                         new_board[x][y] *= MULTIPLIER
+                        merged_points.append((x, y))
                         new_board[i][j] = 0
                     elif x+1 != i:
                         new_board[x+1][y] = new_board[i][j]
@@ -211,6 +217,7 @@ class Board:
     def shift_down(self) -> None:
         # print('shift down')
         new_board = copy.deepcopy(self.board)
+        merged_points = []
         for j in range(COLS):
             for i in reversed(range(ROWS-1)):
                 point = self.get_closest_down(i, j, new_board)
@@ -219,8 +226,9 @@ class Board:
                     new_board[i][j] = 0
                 else:
                     x, y = point[0], point[1]
-                    if new_board[x][y] == new_board[i][j]:
+                    if new_board[x][y] == new_board[i][j] and (x, y) not in merged_points:
                         new_board[x][y] *= MULTIPLIER
+                        merged_points.append((x, y))
                         new_board[i][j] = 0
                     elif x-1 != i:
                         new_board[x-1][y] = new_board[i][j]

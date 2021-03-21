@@ -18,7 +18,7 @@ FONT = 'rsc/ClearSans-Bold.ttf'
 
 GAME_OVER_POS_W = WIDTH // 2
 GAME_OVER_POS_H = HEIGHT // 3
-FADE_TIME = 0.5 # seconds
+FADE_TIME = 0.05 # seconds
 FADE_ALPHA = 180
 
 RESTART_BUTTON_POS_W = WIDTH // 2

@@ -2,11 +2,11 @@
 
 Recreation of the popular 2048 game created by Gabriele Cirulli (found [here](https://play2048.co/ "Original 2048 Game")) made in python using pygame
 
-# Controls
+### Controls
 
 use the arrow keys to move the board. press C to restart the game. press X to close the game
 
-# Requirements
+### Requirements
 
 - Python 3
 - pygame 2.0.0 or higher

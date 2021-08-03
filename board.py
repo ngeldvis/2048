@@ -1,9 +1,8 @@
 import pygame
 import random
-import copy
 from constants import *
 
-# Contains the Board class which consists of the
+# Contains the Board class consisting of the
 # framework used to keep track of the current state 
 # of the board along with all the calculations used
 # when playing the game
@@ -17,6 +16,8 @@ class Board:
         self.board = [[0 for j in range(COLS)] for i in range(ROWS)]
         for i in range(num_blocks):
             self.add_block()
+
+        # self.board = [[2,32,128, 2048],[0, 0, 4, 64],[0, 4, 8, 4],[0, 0, 0, 4]]
 
     # draws the background of the game window
     def draw_bg(self, window: pygame.Surface, block_width: int, block_height: int) -> None:
@@ -113,9 +114,8 @@ class Board:
         return [x, y]
 
     # shift the contents of the board to the left combining blocks of the same value
-    def shift_left(self) -> None:
-        # print('shift left')
-        new_board = copy.deepcopy(self.board)
+    def shift_left(self) -> int:
+        new_board = [row[:] for row in self.board]
         merged_points = []
         for i in range(ROWS):
             for j in range(1, COLS):
@@ -135,7 +135,8 @@ class Board:
         if new_board != self.board:
             self.board = new_board
             return 1
-        return 0
+        else:
+            return 0
 
     # get the closest block to the right of a given block
     # returns the coordinates of the block found or the given block if no block found
@@ -146,9 +147,8 @@ class Board:
         return [x, y]
 
     # shift the contents of the board to the right combining blocks of the same value
-    def shift_right(self) -> None:
-        # print('shift right')
-        new_board = copy.deepcopy(self.board)
+    def shift_right(self) -> int:
+        new_board = [row[:] for row in self.board]
         merged_points = []
         for i in range(ROWS):
             for j in reversed(range(COLS-1)):
@@ -165,11 +165,11 @@ class Board:
                     elif y-1 != j:
                         new_board[x][y-1] = new_board[i][j]
                         new_board[i][j] = 0
-        
         if new_board != self.board:
             self.board = new_board
             return 1
-        return 0
+        else:
+            return 0
     
     # get the closest block closeset above of a given block
     # returns the coordinates of the block found or the given block if no block found
@@ -181,8 +181,7 @@ class Board:
 
     # shift the contents of the board up combining blocks of the same value
     def shift_up(self) -> int:
-        # print('shift up')
-        new_board = copy.deepcopy(self.board)
+        new_board = [row[:] for row in self.board]
         merged_points = []
         for j in range(COLS):
             for i in range(1, ROWS):
@@ -199,11 +198,11 @@ class Board:
                     elif x+1 != i:
                         new_board[x+1][y] = new_board[i][j]
                         new_board[i][j] = 0
-
         if new_board != self.board:
             self.board = new_board
             return 1
-        return 0
+        else:
+            return 0
 
     # get the closest block closeset below of a given block
     # returns the coordinates of the block found or the given block if no block found
@@ -214,9 +213,8 @@ class Board:
         return [x, y]
 
     # shift the contents of the board down combining blocks of the same value
-    def shift_down(self) -> None:
-        # print('shift down')
-        new_board = copy.deepcopy(self.board)
+    def shift_down(self) -> int:
+        new_board = [row[:] for row in self.board]
         merged_points = []
         for j in range(COLS):
             for i in reversed(range(ROWS-1)):
@@ -233,11 +231,11 @@ class Board:
                     elif x-1 != i:
                         new_board[x-1][y] = new_board[i][j]
                         new_board[i][j] = 0
-
         if new_board != self.board:
             self.board = new_board
             return 1
-        return 0
+        else:
+            return 0
 
     # add a new block to the board at a random free position
     def add_block(self) -> None:
@@ -254,10 +252,8 @@ class Board:
         for i in range(num_blocks):
             self.add_block()
     
-    # representation string for printing the Board object
     def __repr__(self) -> str:
         return '\n'.join([''.join(['{:5}'.format(item) for item in row]) for row in self.board])
 
-    # equal condition to check if two boards are eqaul
     def __eq__(self, board: list):
         return self.board == board

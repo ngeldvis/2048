@@ -4,9 +4,6 @@ from time import sleep
 from board import Board
 from constants import *
 
-# Author: Nigel Davis
-# Title: 2048 Game
-# Version: v0.16
 
 ARROW_KEYS = [pygame.K_LEFT, pygame.K_RIGHT, pygame.K_UP, pygame.K_DOWN]
 FPS = 60
@@ -79,8 +76,7 @@ def draw_button(window: pygame.Surface, mouse) -> None:
     # button box
     x_offset = RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2
     y_offset = RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2
-    button = pygame.Rect(x_offset, y_offset,
-                         RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
+    button = pygame.Rect(x_offset, y_offset, RESTART_BUTTON_WIDTH, RESTART_BUTTON_HEIGHT)
     if mouse_on_button(mouse):
         pygame.draw.rect(window, COLORS['border'],
                          button, border_radius=BLOCK_RADIUS)
@@ -97,10 +93,13 @@ def draw_button(window: pygame.Surface, mouse) -> None:
 
 
 def mouse_on_button(mouse):
-    return RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2 <= mouse[0] <= RESTART_BUTTON_POS_W + RESTART_BUTTON_WIDTH // 2 and RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2 <= mouse[1] <= RESTART_BUTTON_POS_H + RESTART_BUTTON_HEIGHT // 2
+    return RESTART_BUTTON_POS_W - RESTART_BUTTON_WIDTH // 2             \
+        <= mouse[0] <= RESTART_BUTTON_POS_W + RESTART_BUTTON_WIDTH // 2 \
+        and RESTART_BUTTON_POS_H - RESTART_BUTTON_HEIGHT // 2           \
+        <= mouse[1] <= RESTART_BUTTON_POS_H + RESTART_BUTTON_HEIGHT // 2
 
 
-# main function with event loop
+# main event loop
 def main() -> None:
     pygame.init()
     pygame.font.init()
@@ -123,23 +122,19 @@ def main() -> None:
                 running = False
 
             if event.type == pygame.KEYDOWN:
-                # Arrow keys are pressed
                 if not game_over and event.key in ARROW_KEYS:
                     make_move(board, event.key, window)
                     if board.no_moves() and game_over == False:
                         game_over = True
                         over(window, board)
-                # C is pressed
                 if event.key == pygame.K_c:
                     reset_board(board, window)
                     game_over = False
-                # X is pressed
                 if event.key == pygame.K_x:
                     running = False
 
             if game_over == True:
                 if event.type == pygame.MOUSEBUTTONDOWN:
-                    # 'new game' button pressed
                     if mouse_on_button(mouse):
                         reset_board(board, window)
                         game_over = False
@@ -152,4 +147,5 @@ def main() -> None:
         pygame.display.update()
 
 
-main()
+if __name__ == '__main__':
+    main()

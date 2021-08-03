@@ -8,5 +8,9 @@ use the arrow keys to move the board. press C to restart the game. press X to cl
 
 ### Requirements
 
-- Python 3
-- pygame 2.0.0 or higher
+- Python 3+
+
+```bash
+# install required dependancies
+$ pip install  -r requirements.txt
+```

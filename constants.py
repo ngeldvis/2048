@@ -14,7 +14,7 @@ BORDER_PERCENT = 3 # default 3
 H_BORDER_WEIGHT = HEIGHT * BORDER_PERCENT / 100
 W_BORDER_WEIGHT = WIDTH * BORDER_PERCENT / 100
 B_TEXT = True # default True
-FONT = 'rsc/ClearSans-Bold.ttf'
+FONT = 'rsc/fonts/ClearSans-Bold.ttf'
 
 GAME_OVER_POS_W = WIDTH // 2
 GAME_OVER_POS_H = HEIGHT // 3

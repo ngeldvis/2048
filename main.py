@@ -12,7 +12,7 @@ FPS = 60
 # set the initial conditions of the game window
 def set_window() -> pygame.Surface:
     window = pygame.display.set_mode((WIDTH, HEIGHT))
-    icon = pygame.image.load('rsc/icon.png')
+    icon = pygame.image.load('rsc/images/icon.png')
     pygame.display.set_icon(icon)
     pygame.display.set_caption('2048')
     window.fill(WHITE)

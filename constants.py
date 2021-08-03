@@ -10,11 +10,11 @@ NEW_BLOCK_DELAY = 0 # default 0.15 seconds
 # GUI
 
 BLOCK_RADIUS = 5 # default 5
-BORDER_PERCENT = 3 # default 3
+BORDER_PERCENT = 3 # de`fault 3
 H_BORDER_WEIGHT = HEIGHT * BORDER_PERCENT / 100
 W_BORDER_WEIGHT = WIDTH * BORDER_PERCENT / 100
 B_TEXT = True # default True
-FONT = 'rsc/fonts/ClearSans-Bold.ttf'
+FONT = 'assets/fonts/ClearSans-Bold.ttf'
 
 GAME_OVER_POS_W = WIDTH // 2
 GAME_OVER_POS_H = HEIGHT // 3
